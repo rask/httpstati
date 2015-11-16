@@ -6,6 +6,8 @@ defined in the W3 HTTP protocol [RFC 2616, section 10][rfc2616].
 Instead of Googling _http status codes_ you can `Ctrl+Alt+T` (YMMV) and
 
     $ httpstati codes
+    
+[![asciicast](https://asciinema.org/a/9p4hqsln4p0a3n30vezuy37vq.png)](https://asciinema.org/a/9p4hqsln4p0a3n30vezuy37vq)
 
 ## Installation
 
