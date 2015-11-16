@@ -104,6 +104,9 @@ Pull requests welcome. Make a fork and create a topic branch.
 
 -   Licensed with GPLv3. See `LICENSE.md`.
 -   Most content copied and/or slightly modified from [RFC 2616, section 10][rfc2616]
-    regarding HTTP status codes
+    regarding HTTP status codes.
+-   Thanks to [Matt Ketmo][mattketmo] for his [Phar packaged CLI apps guide][guide]. 
 
 [rfc2616]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10
+[mattketmo]: https://github.com/MattKetmo
+[guide]: https://moquet.net/blog/distributing-php-cli/
