@@ -3,9 +3,9 @@
 A command-line tool for having a quick look at the different HTTP status codes
 defined in the W3 HTTP protocol [RFC 2616, section 10][rfc2616].
 
-Instead of Googling _http status codes_ you can `Ctrl+Alt+T` (YMMV) and
+Instead of Googling _http status codes_, you can `Ctrl+Alt+T` (YMMV) and
 
-    $ httpstati codes
+    $ httpstati
     
 [![asciicast](https://asciinema.org/a/9p4hqsln4p0a3n30vezuy37vq.png)](https://asciinema.org/a/9p4hqsln4p0a3n30vezuy37vq)
 
@@ -43,7 +43,12 @@ You can list all generally used/available status codes using
 
     $ httpstati codes
     
-The command will dump a table with codes and their names.
+The command will dump a table with codes and their names. This is also the default
+command so using
+
+    $ httpstati
+    
+yields the same results if no arguments are needed.
 
 ### List HTTP status codes for a certain type category
 
