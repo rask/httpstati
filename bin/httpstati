@@ -5,7 +5,12 @@ require(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR 
 
 $application = new \Symfony\Component\Console\Application('httpstati', '@package_version@');
 
-$application->add(new \Httpstati\Commands\AboutCommand());
-$application->add(new \Httpstati\Commands\CodesCommand());
+$codesCmd = new Httpstati\Commands\CodesCommand();
+$aboutCmd = new Httpstati\Commands\AboutCommand();
+
+$application->add($aboutCmd);
+$application->add($codesCmd);
+
+$application->setDefaultCommand($codesCmd->getName());
 
 $application->run();
