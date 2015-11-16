@@ -39,12 +39,17 @@ class AboutCommand extends Command
         $output->writeln('');
         $output->writeln("\t" . '<comment>httpstati</comment>');
         $output->writeln('');
-        $output->writeln("\t" . 'This commandline application can be used to read about the' . "\n\t" . 'common HTTP status codes.');
+        $output->writeln("\t" . 'This commandline application can be used to read' . "\n\t" . 'about the common HTTP status codes.');
         $output->writeln('');
-        $output->writeln("\t" . 'All the information available with this application has been' . "\n\t" . 'gathered from');
+        $output->writeln("\t" . 'All the information available with this application' . "\n\t" . 'has been gathered from');
         $output->writeln('');
         $output->writeln("\t" . '-   HTTP Protocol RFC 2616, section 10');
+
         $output->writeln('');
-        $output->writeln("\t" . 'This application has been written by' . "\n\t" . 'Otto Rask (github.com/rask).');
+        $output->writeln("\t" . '===');
+        $output->writeln('');
+
+        $output->writeln("\t" . 'httpstati Copyright (C) 2015  Otto Rask');
+        $output->writeln("\t" . 'This program comes with ABSOLUTELY NO WARRANTY; for' . "\n\t" . 'details see GNU GPLv3. This is free software, and' . "\n\t" . 'you are welcome to redistribute it under certain' . "\n\t" . 'conditions; for details see GNU GPLv3.');
     }
 }
