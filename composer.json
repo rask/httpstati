@@ -1,0 +1,19 @@
+{
+    "name": "rask/httpstati",
+    "description": "A commandline cheat sheet for HTTP status codes.",
+    "license": "GPLv3+",
+    "authors": [
+        {
+            "name": "Otto Rask",
+            "email": "ojrask@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Httpstati\\": "src/"
+        }
+    },
+    "require": {
+        "symfony/console": "^2.7"
+    }
+}

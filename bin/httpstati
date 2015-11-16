@@ -1,0 +1,11 @@
+#!/usr/bin/env php
+<?php
+
+require(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php');
+
+$application = new \Symfony\Component\Console\Application('httpstati', 'dev');
+
+$application->add(new \Httpstati\Commands\AboutCommand());
+$application->add(new \Httpstati\Commands\CodesCommand());
+
+$application->run();

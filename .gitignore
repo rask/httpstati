@@ -1,0 +1,11 @@
+.idea
+.project
+.idea/
+.project/
+.settings/
+
+vendor/
+
+*.log
+*.out
+*.xml
