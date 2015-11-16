@@ -29,7 +29,7 @@ list of (~2) commands which you can use.
 
 If you want to make the application globally available, you can
 
-   $ sudo ln /usr/bin/httpstati ./httpstati.phar
+   $ sudo ln -s /path/to/downloaded/httpstati.phar /usr/bin/httpstati
    £ # or perhaps
    $ sudo mv ./httpstati.phar /usr/bin/httpstati
 
