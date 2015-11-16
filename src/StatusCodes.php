@@ -20,8 +20,7 @@ class StatusCodes
             'description' => [
                 'This class of status code indicates a provisional response, consisting only of the Status-Line and optional headers, and is terminated by an empty line. There are no required headers for this class of status code. Since HTTP/1.0 did not define any 1xx status codes, servers MUST NOT send a 1xx response to an HTTP/1.0 client except under experimental conditions.',
                 'A client MUST be prepared to accept one or more 1xx status responses prior to a regular response, even if the client does not expect a 100 (Continue) status message. Unexpected 1xx status responses MAY be ignored by a user agent.',
-                'Proxies MUST forward 1xx responses, unless the connection between the proxy and its client has been closed, or unless the proxy itself requested the generation of the 1xx response. (For example, if a',
-                'proxy adds a "Expect: 100-continue" field when it forwards a request, then it need not forward the corresponding 100 (Continue) response(s).)'
+                'Proxies MUST forward 1xx responses, unless the connection between the proxy and its client has been closed, or unless the proxy itself requested the generation of the 1xx response. (For example, if a proxy adds a "Expect: 100-continue" field when it forwards a request, then it need not forward the corresponding 100 (Continue) response(s).)'
             ],
             'codes' => [
                 100 => [
@@ -52,10 +51,15 @@ class StatusCodes
                     'short_description' => 'The request has succeeded',
                     'description' => [
                         'The information returned with the response is dependent on the method used in the request, for example:',
-                        'GET an entity corresponding to the requested resource is sent in the response;',
-                        'HEAD the entity-header fields corresponding to the requested resource are sent in the response without any message-body;',
-                        'POST an entity describing or containing the result of the action;',
-                        'TRACE an entity containing the request message as received by the end server.'
+                        '- GET an entity corresponding to the requested resource is sent in the response;',
+                        '- HEAD the entity-header fields corresponding to the requested resource are sent in the response without any message-body;',
+                        '- POST an entity describing or containing the result of the action;',
+                        '- TRACE an entity containing the request message as received by the end server.'
+                    ],
+                    'examples' => [
+                        [
+                            'John Doe opens his web browser and types in google.com. John has never before opened anything from the domain. The domain does not require authentication or other special handling. After typing the domain to this address bar and hitting enter, the browser sends a GET request to google.com, which in turn returns a 200 OK response, as there was no content from cache and presumably all went well.'
+                        ]
                     ]
                 ],
                 201 => [
@@ -395,36 +399,58 @@ class StatusCodes
         ],
     ];
 
+    /**
+     * @param $num
+     */
+    public static function getSingleCategory($num)
+    {
+        $category = null;
+
+        foreach (self::$codes as $section => $sectionData) {
+            if (strpos($section, $num) !== 0) {
+                continue;
+            }
+
+            $category = new StatusCategory(
+                substr($section, 0, 3),
+                substr($section, 4, 99),
+                $sectionData['short_description'],
+                $sectionData['description']
+            );
+        }
+
+        return $category;
+    }
+
+    /**
+     * @param $num
+     *
+     * @return \Httpstati\StatusCode|int|string
+     */
     public static function getSingleCode($num)
     {
         $codeData = [];
 
         foreach (self::$codes as $sectionName => $section) {
-            if (preg_match('%^\dx?x?$%', $num)) {
-                if (strpos($sectionName, substr($num, 0, 1)) === 0) {
-                    $codeData = [
-                        'code' => substr($sectionName, 0, 3),
-                        'data' => [
-                            'title' => substr($sectionName, 4, 99),
-                            'short_description' => $section['short_description'],
-                            'description' => $section['description']
-                        ]
-                    ];
-                }
-            } else {
-                foreach ($section['codes'] as $code => $data) {
-                    if ((int)$code === (int)$num) {
-                        $codeData['code'] = $code;
-                        $codeData['data'] = $data;
-                    }
+            foreach ($section['codes'] as $code => $data) {
+                if ((int)$code === (int)$num) {
+                    $codeData['code'] = $code;
+                    $codeData['data'] = $data;
                 }
             }
         }
 
         if (empty($codeData)) {
-            throw new \InvalidArgumentException('Invalid code given, cannot show information for ' . $num);
+            return null;
         }
 
-        return $codeData;
+        $code = new StatusCode(
+            $codeData['code'],
+            $codeData['data']['title'],
+            $codeData['data']['short_description'],
+            $codeData['data']['description']
+        );
+
+        return $code;
     }
 }

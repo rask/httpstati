@@ -12,10 +12,10 @@ Instead of Googling _http status codes_ you can `Ctrl+Alt+T` (YMMV) and
 ### Requirements
 
 -   CLI-ready PHP 5.4+
--   A commandline
+-   A commandline able to run PHP scripts
 
-_httpstati_ is based on Symfony Console, so if you can run Composer you can run
-_httpstati_.
+_httpstati_ is based on Symfony Console, so if you can run Composer for instance,
+you can run _httpstati_.
 
 ### Download and test
 
@@ -29,9 +29,9 @@ list of (~2) commands which you can use.
 
 If you want to make the application globally available, you can
 
-   $ sudo ln -s /path/to/downloaded/httpstati.phar /usr/bin/httpstati
-   £ # or perhaps
-   $ sudo mv ./httpstati.phar /usr/bin/httpstati
+    $ sudo ln -s /path/to/downloaded/httpstati.phar /usr/bin/httpstati
+    $ # or perhaps
+    $ sudo mv ./httpstati.phar /usr/bin/httpstati
 
 ## Usage
 

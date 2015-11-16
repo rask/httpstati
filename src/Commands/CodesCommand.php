@@ -2,10 +2,13 @@
 
 namespace Httpstati\Commands;
 
+use Httpstati\StatusCode;
 use Httpstati\StatusCodes;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableSeparator;
+use Symfony\Component\Console\Input\Input;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -46,79 +49,53 @@ class CodesCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $style = new OutputFormatterStyle('red', null, array('bold'));
+        $output->getFormatter()->setStyle('attn', $style);
+
         $singleCode = $input->getArgument('code');
 
         if (!$singleCode) {
             $this->outputCodesTable($input, $output);
         } else {
-            $this->outputSingleCode($singleCode, $input, $output);
-        }
-    }
-
-    /**
-     * @param $paragraph
-     *
-     * @return mixed
-     */
-    protected function formatParagraphs($paragraph)
-    {
-        if (strlen($paragraph) < 65) {
-            return "\t" . $paragraph;
-        }
-
-        $lines = [];
-        $words = explode(' ', $paragraph);
-        $line = "\t";
-
-        foreach ($words as $word) {
-            if (strlen($line) > 60) {
-                $lines[] = $line;
-                $line = "\t";
+            if (strpos($singleCode, 'x') !== false || strlen($singleCode) < 3) {
+                $this->outputSingleCategory($singleCode, $input, $output);
+            } else {
+                $this->outputSingleCode($singleCode, $input, $output);
             }
-
-            $line .= $word . ' ';
         }
-
-        if (!empty($line)) {
-            $lines[] = $line;
-        }
-
-        $paragraph = implode("\n", $lines);
-
-        return $paragraph;
     }
 
     /**
-     * @param $singleCode
+     * @param Integer $singleCode
      * @param \Symfony\Component\Console\Input\InputInterface $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
     protected function outputSingleCode($singleCode, InputInterface $input, OutputInterface $output)
     {
-        try {
-            $code = StatusCodes::getSingleCode($singleCode);
-        } catch (\Exception $e) {
-            $output->writeln('<error>' . $e->getMessage() . '</error>');
-            return;
+        $code = StatusCodes::getSingleCode($singleCode);
+
+        if (!$code) {
+            throw new \Exception('Could not find a status code with that number');
         }
 
-        $title = $code['code'] . ' ' . $code['data']['title'];
-        $summary = $this->formatParagraphs($code['data']['short_description']);
+        // Print as page.
+        $code->render($output);
+    }
 
-        $descStrings = $code['data']['description'];
+    /**
+     * @param String|Integer $singleCat
+     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     */
+    protected function outputSingleCategory($singleCat, InputInterface $input, OutputInterface $output)
+    {
+        $cat = StatusCodes::getSingleCategory($singleCat);
 
-        $descStrings = array_map([$this, 'formatParagraphs'], $descStrings);
+        if (!$cat) {
+            throw new \Exception('Could not find a category with that code');
+        }
 
-        $description = implode("\n\n", $descStrings);
-
-        $t = "\t";
-
-        $output->writeln('');
-        $output->writeln($t . '<comment>' . $title . '</comment>');
-        $output->writeln('');
-        $output->writeln('<info>' . $summary . '</info>');
-        $output->writeln('');
-        $output->writeln($description);
+        $cat->render($output);
     }
 
     /**
@@ -130,7 +107,7 @@ class CodesCommand extends Command
         $codes = StatusCodes::$codes;
 
         $table = new Table($output);
-        $table->setStyle('borderless');
+        //$table->setStyle('borderless');
 
         $table->setHeaders(['Code', 'Title']);
 
