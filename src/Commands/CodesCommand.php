@@ -66,9 +66,15 @@ class CodesCommand extends Command
     }
 
     /**
+     * Output a single status code page.
+     *
+     * @access protected
+     *
      * @param Integer $singleCode
      * @param \Symfony\Component\Console\Input\InputInterface $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
+     *
+     * @return void
      */
     protected function outputSingleCode($singleCode, InputInterface $input, OutputInterface $output)
     {
@@ -83,9 +89,15 @@ class CodesCommand extends Command
     }
 
     /**
+     * Output a single code group page.
+     *
+     * @access protected
+     *
      * @param String|Integer $singleCat
      * @param \Symfony\Component\Console\Input\InputInterface $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
+     *
+     * @return void
      */
     protected function outputSingleCategory($singleCat, InputInterface $input, OutputInterface $output)
     {
@@ -99,8 +111,14 @@ class CodesCommand extends Command
     }
 
     /**
+     * Render the status codes table. Optionally filter groups.
+     *
+     * @access protected
+     *
      * @param \Symfony\Component\Console\Input\InputInterface $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
+     *
+     * @return void
      */
     protected function outputCodesTable(InputInterface $input, OutputInterface $output)
     {
