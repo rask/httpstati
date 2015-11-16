@@ -90,6 +90,11 @@ To read some general information about this application.
     valid RFCs.
 -   The `codes` as a command is a bit redundant currently. Perhaps find a way to use
     the status code numbering as a command directly.
+-   Simpler installation procedure, auto-updates using `httpstati update` or
+    something.
+-   Expand the content. Perhaps an `example` command on situation where to return
+    and use certain HTTP status codes. Maybe a `references` command with links to
+    relevant documents, articles and discussions on certain codes and best practices.
 
 ## Development
 
@@ -97,8 +102,8 @@ Pull requests welcome. Make a fork and create a topic branch.
 
 ## License and other information
 
-- Licensed with GPLv3. See `LICENSE.md`.
-- Most content copied and/or slightly modified from [RFC 2616, section 10][rfc2616] regarding
-HTTP status codes
+-   Licensed with GPLv3. See `LICENSE.md`.
+-   Most content copied and/or slightly modified from [RFC 2616, section 10][rfc2616]
+    regarding HTTP status codes
 
 [rfc2616]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10
